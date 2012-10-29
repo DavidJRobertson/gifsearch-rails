@@ -1,0 +1,35 @@
+<h1>Listing indexed_gifs</h1>
+
+<table>
+  <tr>
+    <th>Url</th>
+    <th>Source url</th>
+    <th>Source name</th>
+    <th>Sourcee</th>
+    <th>Caption</th>
+    <th>Individual caption</th>
+    <th>Tags</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @indexed_gifs.each do |indexed_gif| %>
+  <tr>
+    <td><%= indexed_gif.url %></td>
+    <td><%= indexed_gif.source_url %></td>
+    <td><%= indexed_gif.source_name %></td>
+    <td><%= indexed_gif.source_id %></td>
+    <td><%= indexed_gif.caption %></td>
+    <td><%= indexed_gif.individual_caption %></td>
+    <td><%= indexed_gif.tags %></td>
+    <td><%= link_to 'Show', indexed_gif %></td>
+    <td><%= link_to 'Edit', edit_indexed_gif_path(indexed_gif) %></td>
+    <td><%= link_to 'Destroy', indexed_gif, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Indexed gif', new_indexed_gif_path %>

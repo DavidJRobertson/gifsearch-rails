@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Rails gifsearch: development" product="" version="" jdbc-version="" driver-name="" driver-version="" uuid="cd9b0330-7b09-41b5-8671-e0a1a8c96713">
+    <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+    <jdbc-url>jdbc:postgresql:gifsearch_development</jdbc-url>
+    <user-name>gifsearch</user-name>
+    <user-password>dfcddfc3dfccdfd9dfcfdfcbdfd8dfc9dfc2</user-password>
+    <libraries>
+      <library>
+        <url>file://$USER_HOME$/.RubyMine40/config/jdbc-drivers/postgresql-driver-license.txt</url>
+      </library>
+      <library>
+        <url>jar://$USER_HOME$/.RubyMine40/config/jdbc-drivers/postgresql-9.1-901.jdbc3.jar!/</url>
+      </library>
+    </libraries>
+  </data-source>
+  <data-source source="LOCAL" name="Rails gifsearch: test" product="" version="" jdbc-version="" driver-name="" driver-version="" uuid="a82294b2-ed00-4767-9903-7650bc1c5807">
+    <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+    <jdbc-url>jdbc:postgresql:gifsearch_test</jdbc-url>
+    <user-name>gifsearch</user-name>
+    <libraries>
+      <library>
+        <url>file://$USER_HOME$/.RubyMine40/config/jdbc-drivers/postgresql-driver-license.txt</url>
+      </library>
+      <library>
+        <url>jar://$USER_HOME$/.RubyMine40/config/jdbc-drivers/postgresql-9.1-901.jdbc3.jar!/</url>
+      </library>
+    </libraries>
+  </data-source>
+  <data-source source="LOCAL" name="Rails gifsearch: production" product="" version="" jdbc-version="" driver-name="" driver-version="" uuid="9c3ecaa3-a861-4b3b-88bc-22ef1bc1a6ba">
+    <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+    <jdbc-url>jdbc:postgresql:gifsearch_production</jdbc-url>
+    <user-name>gifsearch</user-name>
+    <libraries>
+      <library>
+        <url>file://$USER_HOME$/.RubyMine40/config/jdbc-drivers/postgresql-driver-license.txt</url>
+      </library>
+      <library>
+        <url>jar://$USER_HOME$/.RubyMine40/config/jdbc-drivers/postgresql-9.1-901.jdbc3.jar!/</url>
+      </library>
+    </libraries>
+  </data-source>
+</component>

@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Url:</b>
+  <%= @indexed_gif.url %>
+</p>
+
+<p>
+  <b>Source url:</b>
+  <%= @indexed_gif.source_url %>
+</p>
+
+<p>
+  <b>Source name:</b>
+  <%= @indexed_gif.source_name %>
+</p>
+
+<p>
+  <b>Sourcee:</b>
+  <%= @indexed_gif.source_id %>
+</p>
+
+<p>
+  <b>Caption:</b>
+  <%= @indexed_gif.caption %>
+</p>
+
+<p>
+  <b>Individual caption:</b>
+  <%= @indexed_gif.individual_caption %>
+</p>
+
+<p>
+  <b>Tags:</b>
+  <%= @indexed_gif.tags %>
+</p>
+
+
+<%= link_to 'Edit', edit_indexed_gif_path(@indexed_gif) %> |
+<%= link_to 'Back', indexed_gifs_path %>

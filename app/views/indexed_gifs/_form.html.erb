@@ -1,0 +1,45 @@
+<%= form_for(@indexed_gif) do |f| %>
+  <% if @indexed_gif.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@indexed_gif.errors.count, "error") %> prohibited this indexed_gif from being saved:</h2>
+
+      <ul>
+      <% @indexed_gif.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :source_url %><br />
+    <%= f.text_field :source_url %>
+  </div>
+  <div class="field">
+    <%= f.label :source_name %><br />
+    <%= f.text_field :source_name %>
+  </div>
+  <div class="field">
+    <%= f.label :source_id %><br />
+    <%= f.number_field :source_id %>
+  </div>
+  <div class="field">
+    <%= f.label :caption %><br />
+    <%= f.text_area :caption %>
+  </div>
+  <div class="field">
+    <%= f.label :individual_caption %><br />
+    <%= f.text_area :individual_caption %>
+  </div>
+  <div class="field">
+    <%= f.label :tags %><br />
+    <%= f.text_area :tags %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
