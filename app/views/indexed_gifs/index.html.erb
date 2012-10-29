@@ -2,10 +2,9 @@
 
 <table>
   <tr>
-    <th>Url</th>
-    <th>Source url</th>
-    <th>Source name</th>
-    <th>Sourcee</th>
+    <th>GIF</th>
+    <th>Source</th>
+    <th>Source ID</th>
     <th>Caption</th>
     <th>Individual caption</th>
     <th>Tags</th>
@@ -16,12 +15,15 @@
 
 <% @indexed_gifs.each do |indexed_gif| %>
   <tr>
-    <td><%= indexed_gif.url %></td>
-    <td><%= indexed_gif.source_url %></td>
-    <td><%= indexed_gif.source_name %></td>
+    <td><img src="<%= indexed_gif.url %>" /></td>
+    <td>
+      <a href=" <%= indexed_gif.source_url %>">
+        <%= indexed_gif.source_name %>
+      </a>
+    </td>
     <td><%= indexed_gif.source_id %></td>
-    <td><%= indexed_gif.caption %></td>
-    <td><%= indexed_gif.individual_caption %></td>
+    <td><%= indexed_gif.safe_caption.html_safe %></td>
+    <td><%= indexed_gif.safe_individual_caption.html_safe %></td>
     <td><%= indexed_gif.tags %></td>
     <td><%= link_to 'Show', indexed_gif %></td>
     <td><%= link_to 'Edit', edit_indexed_gif_path(indexed_gif) %></td>

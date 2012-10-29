@@ -14,15 +14,16 @@
 ActiveRecord::Schema.define(:version => 20121029202137) do
 
   create_table "indexed_gifs", :force => true do |t|
-    t.string   "url"
+    t.string   "url",                                                :null => false
     t.string   "source_url"
     t.string   "source_name"
     t.integer  "source_id",          :limit => 8
     t.text     "caption"
     t.text     "individual_caption"
     t.text     "tags"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.boolean  "nsfw",                            :default => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
   end
 
   add_index "indexed_gifs", ["source_id"], :name => "index_indexed_gifs_on_source_id", :unique => true

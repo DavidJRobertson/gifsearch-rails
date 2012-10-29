@@ -77,6 +77,8 @@ class Crawler
         gif.caption             = post['caption']
         gif.individual_caption  = photo['caption']
 
+        gif.nsfw = true if (post['tags'] & %w(nsfw NSFW porn naked)).empty?
+
         begin
           gif.save
         rescue ActiveRecord::RecordNotUnique

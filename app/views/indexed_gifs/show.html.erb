@@ -1,38 +1,26 @@
 <p id="notice"><%= notice %></p>
 
+<img src="<%= @indexed_gif.url %>" />
 <p>
-  <b>Url:</b>
-  <%= @indexed_gif.url %>
+  <b>Source:</b>
+  <a href="<%= @indexed_gif.source_url %>">
+    <%= @indexed_gif.source_name %>
+  </a>
 </p>
 
-<p>
-  <b>Source url:</b>
-  <%= @indexed_gif.source_url %>
-</p>
-
-<p>
-  <b>Source name:</b>
-  <%= @indexed_gif.source_name %>
-</p>
-
-<p>
-  <b>Sourcee:</b>
-  <%= @indexed_gif.source_id %>
-</p>
 
 <p>
   <b>Caption:</b>
-  <%= @indexed_gif.caption %>
+  <%= @indexed_gif.safe_caption %>
+  <%= @indexed_gif.safe_individual_caption %>
 </p>
 
-<p>
-  <b>Individual caption:</b>
-  <%= @indexed_gif.individual_caption %>
-</p>
 
 <p>
   <b>Tags:</b>
-  <%= @indexed_gif.tags %>
+  <% @indexed_gif.tags.each do |tag| %>
+    <span class="tag"><%= tag %></span>
+  <% end %>
 </p>
 
 
