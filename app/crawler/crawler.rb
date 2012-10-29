@@ -77,7 +77,12 @@ class Crawler
         gif.caption             = post['caption']
         gif.individual_caption  = photo['caption']
 
-        gif.save
+        begin
+          gif.save
+        rescue ActiveRecord::RecordNotUnique
+          # Don't die if we already have this gif :P
+        end
+
       end
     end
     return nil
