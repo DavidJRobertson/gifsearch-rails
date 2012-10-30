@@ -40,3 +40,7 @@ gem 'jquery-rails'
 gem 'tumblr_client'
 gem 'pg_search'
 gem 'kaminari'
+
+
+gem 'less-rails'
+gem 'therubyracer'
