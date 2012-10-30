@@ -139,20 +139,6 @@ ALTER TABLE ONLY pg_search_documents
 
 
 --
--- Name: index_indexed_gifs_on_source_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_indexed_gifs_on_source_id ON indexed_gifs USING btree (source_id);
-
-
---
--- Name: index_indexed_gifs_on_source_url; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_indexed_gifs_on_source_url ON indexed_gifs USING btree (source_url);
-
-
---
 -- Name: index_indexed_gifs_on_url; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -173,3 +159,5 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 INSERT INTO schema_migrations (version) VALUES ('20121029202137');
 
 INSERT INTO schema_migrations (version) VALUES ('20121029233350');
+
+INSERT INTO schema_migrations (version) VALUES ('20121030004318');
