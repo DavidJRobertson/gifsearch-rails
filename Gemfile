@@ -44,3 +44,4 @@ gem 'kaminari'
 
 gem 'less-rails'
 gem 'therubyracer'
+gem 'delayed_job_active_record'

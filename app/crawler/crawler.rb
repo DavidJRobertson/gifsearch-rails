@@ -12,15 +12,24 @@ class Crawler
 
   public
 
-  def self.scour_account(baseurl)
+  def self.scour_account(baseurl, stoptime = nil)
     blog_info = $tumblr.blog_info(baseurl)
+    return false if blog_info.nil? or blog_info.empty?
+
     post_count = blog_info['blog']['posts']
     puts post_count
 
     puts "Scouring account..."
+
+    stoptime = stoptime.utc if stoptime
+
     (0..post_count).step(20) do |offset|
       puts "Offset is #{offset}"
       $tumblr.posts(baseurl, type: :photo, offset: offset)['posts'].each do |post|
+        date = post['date'].to_time.utc
+        if stoptime and date < stoptime
+          return
+        end
         process_post post
       end
     end
@@ -43,16 +52,20 @@ class Crawler
       return process_post(post, true) if uri.path == "" or uri.path == "/" # Bail out on malformed source URLs! todo: image should still be indexed!
 
       baseurl = uri.host
+      scour_todo_add baseurl
+
+      begin
       id = uri.path.split('/')[2].to_i
 
 
       data = $tumblr.posts(baseurl, limit: 1, id: id)
       return process_post(post, true) if data.empty? # Bail out if the source post either a/ doesn't exist any more or b/ was never a tumblr post
 
+      return process_post(data['posts'].first)
+      rescue
+        return
+      end
 
-      process_post(data['posts'].first)
-
-      scour_todo_add baseurl
     else
       # This is the original source of this post
       post['photos'].each do |photo|
@@ -92,6 +105,12 @@ class Crawler
 
   def self.scour_todo_add(baseurl)
     #todo: Make this add to a todo list
-    puts "Todo list appended with #{baseurl}"
+    begin
+      source = Source.new
+      source.base_url= baseurl
+      source.save
+    rescue ActiveRecord::RecordNotUnique
+      return false
+    end
   end
 end
