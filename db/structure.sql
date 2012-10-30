@@ -255,6 +255,13 @@ CREATE UNIQUE INDEX index_indexed_gifs_on_url ON indexed_gifs USING btree (url);
 
 
 --
+-- Name: multisearch_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX multisearch_idx ON pg_search_documents USING gin (to_tsvector('simple'::regconfig, COALESCE(content, ''::text)));
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -274,3 +281,5 @@ INSERT INTO schema_migrations (version) VALUES ('20121030004318');
 INSERT INTO schema_migrations (version) VALUES ('20121030035225');
 
 INSERT INTO schema_migrations (version) VALUES ('20121030035435');
+
+INSERT INTO schema_migrations (version) VALUES ('20121030172838');
