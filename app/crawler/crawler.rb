@@ -38,7 +38,7 @@ class Crawler
 
 
   def self.process_post(post, force_no_source=false)
-
+    #puts post.inspect
     unless (post.class == Hash and post['type'] == 'photo')
       return false
     end
@@ -49,14 +49,14 @@ class Crawler
       # This isn't the original source of this post! Go get it from there.
       uri = URI(post['source_url'])
 
-      return process_post(post, true) if uri.path == "" or uri.path == "/" # Bail out on malformed source URLs! todo: image should still be indexed!
+      return process_post(post, true) if uri.path == "" or uri.path == "/" # Bail out on malformed source URLs!
 
       baseurl = uri.host
-      scour_todo_add baseurl
+      scour_todo_add baseurl if post['photos'].first['original_size']['url'].ends_with?(".gif")
 
       begin
       id = uri.path.split('/')[2].to_i
-
+      return process_post(post, true) if id == post['id']
 
       data = $tumblr.posts(baseurl, limit: 1, id: id)
       return process_post(post, true) if data.empty? # Bail out if the source post either a/ doesn't exist any more or b/ was never a tumblr post
@@ -94,7 +94,7 @@ class Crawler
 
         begin
           gif.save
-        rescue ActiveRecord::RecordNotUnique
+        rescue
           # Don't die if we already have this gif :P
         end
 
