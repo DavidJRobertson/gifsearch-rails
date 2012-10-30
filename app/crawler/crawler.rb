@@ -47,6 +47,7 @@ class Crawler
 
     if(post['source_url'] && !force_no_source)
       # This isn't the original source of this post! Go get it from there.
+      begin
       uri = URI(post['source_url'])
 
       return process_post(post, true) if uri.path == "" or uri.path == "/" # Bail out on malformed source URLs!
@@ -54,7 +55,6 @@ class Crawler
       baseurl = uri.host
       scour_todo_add baseurl if post['photos'].first['original_size']['url'].ends_with?(".gif")
 
-      begin
       id = uri.path.split('/')[2].to_i
       return process_post(post, true) if id == post['id']
 
@@ -63,7 +63,7 @@ class Crawler
 
       return process_post(data['posts'].first)
       rescue
-        return
+        return false
       end
 
     else
@@ -90,7 +90,7 @@ class Crawler
         gif.caption             = post['caption']
         gif.individual_caption  = photo['caption']
 
-        gif.nsfw = true if (post['tags'] & %w(nsfw NSFW porn naked)).empty?
+        gif.nsfw = true unless (post['tags'] & %w(nsfw NSFW porn naked penis sex vagina cock)).empty?
 
         begin
           gif.save
@@ -104,12 +104,11 @@ class Crawler
   end
 
   def self.scour_todo_add(baseurl)
-    #todo: Make this add to a todo list
     begin
       source = Source.new
       source.base_url= baseurl
       source.save
-    rescue ActiveRecord::RecordNotUnique
+    rescue
       return false
     end
   end

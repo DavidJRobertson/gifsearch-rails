@@ -1,7 +1,7 @@
 <br />
 <div class="hero-unit">
   <h1>Gifsearch</h1>
-  <h2>Search from <%= IndexedGif.count %> Tumblr GIFs!</h2>
+  <h2>Search from <%= number_with_delimiter(IndexedGif.count, delimiter: ',') %> Tumblr GIFs!</h2>
 
   <br />
   <div class="pull-left">

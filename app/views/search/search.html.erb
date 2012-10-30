@@ -16,6 +16,9 @@
     </a>
 
     <div class="span4 pull-right">
+      <% if result.nsfw %>
+          <h3>Marked as NSFW</h3>
+      <% end %>
       <div class="row result_caption">
         <h4>Caption: </h4>
         <%= result.safe_caption %>
@@ -29,9 +32,11 @@
       <div class="row result_tags">
         <h4>Tags: </h4>
         <% result.tags.each do |tag| %>
-           <span class="label pull-right">
-             <%= link_to tag, search_path(tag) %>
-           </span>
+          <a href="<%= search_path(tag) %>">
+            <span class="label pull-right">
+              <%= tag %>
+            </span>
+          </a>
         <% end %>
       </div>
 
