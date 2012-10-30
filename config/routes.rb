@@ -1,8 +1,11 @@
 Gifsearch::Application.routes.draw do
+  match 'search/:query'       => 'search#search', :as => :search
+  match 'search/:query/:page' => 'search#search', :constraints => { :page => /\d+/ }
+  match 'search/'             => 'search#query_redirect'
 
-  match 'search/:query'       => 'search#search'
-  match 'search/:query/:page' => 'search#search'
-  resources :indexed_gifs
+  #resources :indexed_gifs
+
+  root :to => 'pages#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

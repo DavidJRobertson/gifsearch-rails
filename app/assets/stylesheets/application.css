@@ -21,12 +21,11 @@
 }
 .result img.result_gif {
     height: 200px;
-
-
 }
 
-.result_caption {
-    /*width: 60%;*/
-    float: right;
+
+
+.result_tags span.label {
+    margin: 5px;
 }
 

@@ -1,33 +1,48 @@
 <h1>Search for "<%= params[:query] %>"</h1>
 
+<% if @results.empty? %>
+    <div class="alert alert-error">
+      <strong>Uh oh :(</strong>
+      There's no results for that. Sorry 'bout that.
+    </div>
+<% end %>
+
 
 <% @results.each do |r| %>
-    <% result = r.searchable %>
-    <div class="result">
-      <a href="<%= result.source_url%>">
-        <img class="result_gif" src="<%= result.url %>" />
-      </a>
+  <% result = r.searchable %>
+  <div class="row result">
+    <a href="<%= result.source_url%>">
+      <img class="result_gif" src="<%= result.url %>" />
+    </a>
 
-      <div class="result_caption">
+    <div class="span4 pull-right">
+      <div class="row result_caption">
+        <h4>Caption: </h4>
         <%= result.safe_caption %>
-
-      </div>
-      <div class="result_caption">
+        <br />
         <%= result.safe_individual_caption %>
 
       </div>
 
-      <span class="result_source">
+
+
+      <div class="row result_tags">
+        <h4>Tags: </h4>
+        <% result.tags.each do |tag| %>
+           <span class="label pull-right">
+             <%= tag %>
+           </span>
+        <% end %>
+      </div>
+
+      <span class="row result_source">
         Source:
         <a href="<%= result.source_url%>">
           <%= result.source_name %>
         </a>
       </span>
 
-
-
     </div>
-
-
-
+  </div>
 <% end %>
+
