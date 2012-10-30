@@ -82,7 +82,8 @@ CREATE TABLE indexed_gifs (
     tags text,
     nsfw boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    tsv tsvector
 );
 
 
@@ -103,39 +104,6 @@ CREATE SEQUENCE indexed_gifs_id_seq
 --
 
 ALTER SEQUENCE indexed_gifs_id_seq OWNED BY indexed_gifs.id;
-
-
---
--- Name: pg_search_documents; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE pg_search_documents (
-    id integer NOT NULL,
-    content text,
-    searchable_id integer,
-    searchable_type character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: pg_search_documents_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE pg_search_documents_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pg_search_documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE pg_search_documents_id_seq OWNED BY pg_search_documents.id;
 
 
 --
@@ -198,13 +166,6 @@ ALTER TABLE ONLY indexed_gifs ALTER COLUMN id SET DEFAULT nextval('indexed_gifs_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY pg_search_documents ALTER COLUMN id SET DEFAULT nextval('pg_search_documents_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY sources ALTER COLUMN id SET DEFAULT nextval('sources_id_seq'::regclass);
 
 
@@ -225,14 +186,6 @@ ALTER TABLE ONLY indexed_gifs
 
 
 --
--- Name: pg_search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY pg_search_documents
-    ADD CONSTRAINT pg_search_documents_pkey PRIMARY KEY (id);
-
-
---
 -- Name: sources_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -248,6 +201,13 @@ CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at
 
 
 --
+-- Name: gifs_fts_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX gifs_fts_idx ON indexed_gifs USING gin (tsv);
+
+
+--
 -- Name: index_indexed_gifs_on_url; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -255,17 +215,17 @@ CREATE UNIQUE INDEX index_indexed_gifs_on_url ON indexed_gifs USING btree (url);
 
 
 --
--- Name: multisearch_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX multisearch_idx ON pg_search_documents USING gin (to_tsvector('simple'::regconfig, COALESCE(content, ''::text)));
-
-
---
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON indexed_gifs FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('tsv', 'pg_catalog.english', 'tags', 'caption', 'individual_caption');
 
 
 --
@@ -283,3 +243,9 @@ INSERT INTO schema_migrations (version) VALUES ('20121030035225');
 INSERT INTO schema_migrations (version) VALUES ('20121030035435');
 
 INSERT INTO schema_migrations (version) VALUES ('20121030172838');
+
+INSERT INTO schema_migrations (version) VALUES ('20121030224707');
+
+INSERT INTO schema_migrations (version) VALUES ('20121030232015');
+
+INSERT INTO schema_migrations (version) VALUES ('20121030232357');

@@ -1,6 +1,19 @@
 class IndexedGif < ActiveRecord::Base
   include ActionView::Helpers
   include PgSearch
+
+  pg_search_scope :search,
+                  :against => [:caption, :individual_caption, :tags],
+                  :using => {
+                    :tsearch => {
+                      :dictionary      => 'english',
+                      :tsvector_column => 'tsv'
+                    }
+                  }
+
+
+
+
   multisearchable :against => [:caption, :individual_caption, :tags]
 
   attr_accessible :caption, :individual_caption, :source_name, :source_url, :source_id, :tags, :url

@@ -3,7 +3,7 @@ class SearchController < ApplicationController
     page = params[:page]
     page ||= 1
 
-    @search_result = PgSearch.multisearch(params[:query])
+    @search_result = IndexedGif.search(params[:query])
     @results = @search_result.page(page).per(5)
   end
 

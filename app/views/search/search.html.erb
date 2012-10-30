@@ -1,4 +1,4 @@
-<h1><%= @search_result.count %> results for "<%= params[:query] %>"</h1>
+<h1><%= pluralize(@search_result.count, 'result') %> for "<%= params[:query] %>"</h1>
 
 <% if @results.empty? %>
     <div class="alert alert-error">
@@ -8,11 +8,10 @@
 <% end %>
 
 
-<% @results.each do |r| %>
-  <% result = r.searchable %>
+<% @results.each do |result| %>
   <div class="row result">
     <a href="<%= result.source_url%>">
-      <img class="result_gif" src="<%= result.url %>" />
+      <img class="span7 result_gif" src="<%= result.url %>" />
     </a>
 
     <div class="span4 pull-right">
