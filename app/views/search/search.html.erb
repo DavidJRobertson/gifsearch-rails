@@ -30,7 +30,7 @@
         <h4>Tags: </h4>
         <% result.tags.each do |tag| %>
            <span class="label pull-right">
-             <%= tag %>
+             <%= link_to tag, search_path(tag) %>
            </span>
         <% end %>
       </div>
