@@ -1,0 +1,33 @@
+<h1>Search for "<%= params[:query] %>"</h1>
+
+
+<% @results.each do |r| %>
+    <% result = r.searchable %>
+    <div class="result">
+      <a href="<%= result.source_url%>">
+        <img class="result_gif" src="<%= result.url %>" />
+      </a>
+
+      <div class="result_caption">
+        <%= result.safe_caption %>
+
+      </div>
+      <div class="result_caption">
+        <%= result.safe_individual_caption %>
+
+      </div>
+
+      <span class="result_source">
+        Source:
+        <a href="<%= result.source_url%>">
+          <%= result.source_name %>
+        </a>
+      </span>
+
+
+
+    </div>
+
+
+
+<% end %>

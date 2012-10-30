@@ -1,4 +1,7 @@
 Gifsearch::Application.routes.draw do
+
+  match 'search/:query'       => 'search#search'
+  match 'search/:query/:page' => 'search#search'
   resources :indexed_gifs
 
   # The priority is based upon order of creation:

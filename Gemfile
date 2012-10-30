@@ -38,3 +38,5 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'tumblr_client'
+gem 'pg_search'
+gem 'kaminari'
