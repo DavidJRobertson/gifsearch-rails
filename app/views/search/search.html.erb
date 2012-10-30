@@ -1,4 +1,4 @@
-<h1>Search for "<%= params[:query] %>"</h1>
+<h1>Search results for "<%= params[:query] %>"</h1>
 
 <% if @results.empty? %>
     <div class="alert alert-error">
@@ -45,4 +45,6 @@
     </div>
   </div>
 <% end %>
+
+<%= paginate @results %>
 
