@@ -14,7 +14,7 @@ class IndexedGif < ActiveRecord::Base
 
 
 
-  multisearchable :against => [:caption, :individual_caption, :tags]
+  
 
   attr_accessible :caption, :individual_caption, :source_name, :source_url, :source_id, :tags, :url
   after_initialize :initialize_second
