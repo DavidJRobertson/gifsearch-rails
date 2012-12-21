@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def logger
-    @@ ||= Logger.new(File.join(Rails.root, "log/search.log"))
+    @@logger ||= Logger.new(File.join(Rails.root, "log/search.log"))
   end
 
   def search
