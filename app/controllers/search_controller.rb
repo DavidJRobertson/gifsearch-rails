@@ -7,7 +7,7 @@ class SearchController < ApplicationController
     page = params[:page]
     page ||= 1
      
-    logger.info "#{request.rempte_ip}: #{params[:query]} (Page: #{page})"
+    logger.info "#{request.remote_ip}: #{params[:query]} (Page: #{page})"
 
     @search_result = IndexedGif.search(params[:query])
     @results = @search_result.page(page).per(5)
