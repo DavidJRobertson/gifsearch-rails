@@ -1,7 +1,13 @@
 class SearchController < ApplicationController
+  def logger
+    @@ ||= Logger.new(File.join(Rails.root, "log/search.log"))
+  end
+
   def search
     page = params[:page]
     page ||= 1
+     
+    logger.info "#{request.rempte_ip}: #{params[:query]} (Page: #{page})"
 
     @search_result = IndexedGif.search(params[:query])
     @results = @search_result.page(page).per(5)
